@@ -21,19 +21,6 @@ CREATE TABLE "public"."roles" (
     PRIMARY KEY ("rolid")
 );
 
-DROP TABLE IF EXISTS "public"."sesiones";
--- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
-
--- Table Definition
-CREATE TABLE "public"."sesiones" (
-    "sesionid" int4 NOT NULL,
-    "fecha_ingreso" timestamp NOT NULL,
-    "fecha_cierre" timestamp,
-    "usuarioid" int4 NOT NULL,
-    CONSTRAINT "FK_6f2be4d03fb6d5e541663e1f2c7" FOREIGN KEY ("usuarioid") REFERENCES "public"."usuarios"("usuarioid"),
-    PRIMARY KEY ("sesionid")
-);
-
 DROP TABLE IF EXISTS "public"."usuarios";
 -- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
 
@@ -52,6 +39,21 @@ CREATE TABLE "public"."usuarios" (
     CONSTRAINT "FK_68be5233c49b8d3c9636cc170a2" FOREIGN KEY ("personaid") REFERENCES "public"."personas"("personaid"),
     PRIMARY KEY ("usuarioid")
 );
+
+
+DROP TABLE IF EXISTS "public"."sesiones";
+-- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
+
+-- Table Definition
+CREATE TABLE "public"."sesiones" (
+    "sesionid" int4 NOT NULL,
+    "fecha_ingreso" timestamp NOT NULL,
+    "fecha_cierre" timestamp,
+    "usuarioid" int4 NOT NULL,
+    CONSTRAINT "FK_6f2be4d03fb6d5e541663e1f2c7" FOREIGN KEY ("usuarioid") REFERENCES "public"."usuarios"("usuarioid"),
+    PRIMARY KEY ("sesionid")
+);
+
 
 
 
