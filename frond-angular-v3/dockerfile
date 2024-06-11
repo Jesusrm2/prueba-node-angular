@@ -1,0 +1,15 @@
+# Etapa de construcción
+FROM node:20.12.0 as build-stage
+WORKDIR /app
+COPY package*.json /app/
+RUN npm install -g @angular/cli
+RUN npm install
+COPY . /app/
+RUN npm run build
+
+# Etapa de producción
+FROM nginx:1.21.3-alpine as production-stage
+COPY --from=build-stage /app/dist/my-app/ /usr/share/nginx/html
+EXPOSE 4200
+COPY default.conf /etc/nginx/conf.d/
+CMD ["nginx", "-g", "daemon off;"]

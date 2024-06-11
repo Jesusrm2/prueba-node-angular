@@ -1,0 +1,95 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button type="button" pButton pRipple icon="pi pi-plus" class="p-button-success mr-2"
+                            Tooltip="Agregar nuevo usuario" tooltipPosition="left" (click)="formUser()"
+                            label="Nuevo">
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <app-import-file (fileUploaded)="loadUsuarios()"></app-import-file>
+                </ng-template>
+            </p-toolbar>
+            <p-table [value]="listUsers" [rows]="10" [loading]="isLoading" [rowHover]="true"
+                styleClass="p-datatable-gridlines" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"
+                responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <h5 class="m-0">Administración de usuarios</h5>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input #filter pInputText type="text" (input)="onInput($event)"
+                                placeholder="Nombre de usuario...." class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 8rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Usuario
+                            </div>
+                        </th>
+                        <th style="min-width: 8rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Nombres
+                            </div>
+                        </th>
+                        <th style="min-width: 8rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Apellidos
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Correo
+                            </div>
+                        </th>
+                        <th style="min-width: 8rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Rol
+                            </div>
+                        </th>
+                        <th style="width: 5rem"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-usuario>
+                    <tr>
+                        <td>{{ usuario.username }}</td>
+                        <td>{{ usuario.persona.nombres }}</td>
+                        <td>{{ usuario.persona.apellidos }}</td>
+                        <td>{{ usuario.correo }}</td>
+                        <td>{{usuario.rol.rolname}} </td>
+                        <td>
+                            <div class="my-button-group">
+                                <div class="flex">
+                                    <button pButton pRipple [raised]="true" severity="help"
+                                        class="p-button-rounded  mr-2" icon="pi pi-pencil" pTooltip="Editar usuario"
+                                        tooltipPosition="left" (click)="formUser(usuario)"></button>
+                                    <button pButton pRipple [raised]="true" severity="danger"
+                                        class="p-button-rounded  mr-2" icon="pi pi-trash" pTooltip="Eliminar usuario"
+                                        tooltipPosition="left" (click)="deleteUser(usuario)"></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="5">No data found.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="5">Loading data. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    
+</div>

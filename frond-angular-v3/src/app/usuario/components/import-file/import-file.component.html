@@ -1,0 +1,130 @@
+<!-- import { Usuario } from "../../auth/interfaces/usuario";
+
+export interface IImportFile {
+  message: string;
+  usuariosExitosos?: Usuario[];
+  errores?: IErroresExcel[];
+}
+
+export interface IErroresExcel {
+  ubicacion: string;
+  error: string;
+}
+
+export interface Usuario {
+  usuarioid: number;
+  username: string;
+  correo: string;
+  contrasena: string;
+  estado: boolean;
+  codigo: null;
+  intentos: null;
+  rol: Rol;
+  persona: Persona;
+}
+
+interface Persona {
+  personaid: number;
+  nombres: string;
+  apellidos: string;
+  identificacion: string;
+  fecha_nacimiento: string;
+}
+
+interface Rol {
+  rolid: number;
+  rolname: string;
+} -->
+<app-loading-scream [isLoading]='isLoading'></app-loading-scream>
+<p-dialog header="Importar Fichero Excel" [(visible)]="displayImportFichero" [modal]="true" [style]="{width: '450px'}"
+class="p-fluid">
+
+    <ng-template pTemplate="content">
+      <div class="field">
+        
+          <p-fileUpload #fileUpload (onSelect)="onFileSelect($event)" [showCancelButton]="false"
+            [showUploadButton]="false" accept=".xlsx" chooseLabel="Cargar Excel" dragDropSupport="true" name="file[]" >
+            <ng-template pTemplate="content">
+              <div *ngIf="!nameFileToUpload">
+                <p class="content-message">Arraste aquí el archivo excel ..</p>
+              </div>
+            </ng-template>
+            <ng-template let-file pTemplate="file">
+              <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">{{file.name}}</div>
+                <div class="ui-g-12 ui-md-12">{{formatBytes(file.size, 2)}}</div>
+              </div>
+            </ng-template>
+          </p-fileUpload>
+
+        <div *ngIf="listUsers && listUsers.length > 0">
+          <p-toolbar styleClass="mb-1 my-3">
+            <ng-template pTemplate="left">
+              <p>Exportar </p>
+            </ng-template>
+              <ng-template pTemplate="right">
+                <p-button (onClick)="downloadExcelFile()" label="Excel" icon="pi pi-file-excel" severity="success"
+                [style]="{'margin-right':'10px'}"></p-button>
+                <p-button (onClick)="downloadPdfFile()" label="PDF" icon="pi pi-file-pdf" severity="danger"></p-button>
+              </ng-template>
+          </p-toolbar>
+          <p-table [value]="listUsers" responsiveLayout="stack" [breakpoint]="'100%'"
+          styleClass="p-datatable-gridlines" >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Identificación</th>
+                <th>Fecha Nacimiento</th>
+                <th>Correo</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+    
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-users>
+              <tr>
+
+                <td>{{users.persona.nombres}}</td>
+                <td>{{users.persona.apellidos}}</td>
+                <td>{{users.persona.identificacion}}</td>
+                <td>{{users.persona.fecha_nacimiento}}</td>
+                <td>{{users.correo}}</td>
+                <td>{{users.username}}</td>
+                <td>{{users.rol.rolname}}</td>
+
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div *ngIf="listErrors && listErrors.length > 0" class="my-3">
+          <p-table [value]="listErrors" responsiveLayout="stack" [breakpoint]="'100%'"
+          styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Ubicación</th>
+                <th>Error</th>
+              </tr>
+         
+            </ng-template>
+            <ng-template pTemplate="body" let-error>
+              <tr>
+                <td>{{error.ubicacion}}</td>
+                <td>{{error.error}}</td>
+              </tr>
+       
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button (onClick)="enviarFichero()" label="Enviar" class="p-button-secondary margin-right-10 "></p-button>    
+    </ng-template>
+</p-dialog>
+  <button  
+  Tooltip="Importar usuarios" 
+  tooltipPosition="left" 
+  pButton pRipple (click)="displayImportFichero = true" 
+  class="p-button-help"  icon="pi pi-upload" label="Importar" type="button">
+  </button>
