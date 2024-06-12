@@ -36,7 +36,6 @@ export class LoginPageComponent {
     this.authService.loginUser(userLogin).subscribe(
       {
         error: error => {
-          console.error(error);
           this.msgService.add({ severity: 'error', summary: 'Error', detail: `${error.error}`});
           this.isLoading = false;
         },

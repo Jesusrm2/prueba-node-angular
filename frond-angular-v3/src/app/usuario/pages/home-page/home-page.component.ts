@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Usuario } from '../../../auth/interfaces/usuario';
-import { AuthService } from '../../../auth/services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { IUserWelcome } from '../../interfaces/user';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home-page',
@@ -13,6 +12,7 @@ export class HomePageComponent {
   userWelcome?: IUserWelcome;
   constructor(
     private usuarioService: UsuarioService,
+    private messageService: MessageService,
   ) {}
   ngOnInit(){
     this.loadUserWelcome();
@@ -27,7 +27,8 @@ export class HomePageComponent {
         next: (user) => {
           this.userWelcome = user;
         },
-        error: () => {
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${error.error}` })
           this.isLoading = false
         },
         complete: () => this.isLoading = false,

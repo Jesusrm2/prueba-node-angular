@@ -47,7 +47,6 @@ export class ForgotPasswordComponent {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Email enviado'});  
           },
           error: error => {
-            console.log(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: `${error.error}`});
             this.isLoading = false;
           },
@@ -64,7 +63,6 @@ export class ForgotPasswordComponent {
     this.isLoading = true;
     this.formulariocodigo.patchValue({correo: this.emailSent});
     if (this.formulariocodigo.valid) {
-      console.log(this.formulariocodigo.value);
       this.authservice.forgotPasswordVerifyCode(this.formulariocodigo.value as IForgotPassword).subscribe(
         {
           next: () => {
@@ -73,7 +71,6 @@ export class ForgotPasswordComponent {
             this.seCreoLaContrasena = true;
           },
           error: error => {
-            console.log(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: `${error.error}`});
             this.isLoading = false;
           },

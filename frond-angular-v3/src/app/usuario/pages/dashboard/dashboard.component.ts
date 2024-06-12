@@ -39,8 +39,8 @@ export class DashboardComponent {
         next: (usuarios) => {
           this.listUsuariosSesion = usuarios;
         },
-        error: () => {
-          this.msgService.add({ severity: 'error', summary: 'Error', detail: "Error al cargar los usuarios" })
+        error: (error) => {
+          this.msgService.add({ severity: 'error', summary: 'Error', detail: `${error.error}` })
           this.isLoading = false
         },
         complete: () => this.isLoading = false,

@@ -78,14 +78,13 @@ export class ImportFileComponent {
               this.listUsers = response.usuariosExitosos;
             }
             if (response.errores) {
-              console.log(response.errores);
               this.listErrors = response.errores;
+              this.messageService.add({ severity: 'error', summary: 'Error:', detail: 'El archivo contiene errores' });
             }
             this.fileUploaded.emit();
           },
           error: (error) => {
-  
-            this.messageService.add({ severity: 'error', summary: 'Error al procesar el fichero', detail: 'No se han podido procesar los datos' });
+            this.messageService.add({ severity: 'error', summary: 'Error: ', detail: `${error.error}`});
             this.isLoading = false;
           },
           complete: () => {
@@ -106,7 +105,7 @@ export class ImportFileComponent {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Users');
     XLSX.writeFile(workbook, 'UsersAccount.xlsx');
   } else {
-    console.log('No hay usuarios para exportar');
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No hay usuarios para exportar' });
   }
 }
 downloadPdfFile() {
@@ -126,7 +125,7 @@ downloadPdfFile() {
     });
     doc.save('UsersAccount.pdf');
   } else {
-    console.log('No hay usuarios para exportar');
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No hay usuarios para exportar' });
   }
 }
 }

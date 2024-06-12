@@ -46,9 +46,8 @@ export class AdminUsuariosComponent {
           this.listUsers = usuarios;
           this.allUsers = usuarios;
         },
-        error: () => {
-
-          this.msgService.add({ severity: 'error', summary: 'Error', detail: "Error al cargar los usuarios" })
+        error: (error) => {
+          this.msgService.add({ severity: 'error', summary: 'Error', detail: `${error.error}` })
           this.isLoading = false
         },
         complete: () => this.isLoading = false,
