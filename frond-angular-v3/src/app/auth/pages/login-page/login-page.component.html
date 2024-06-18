@@ -1,0 +1,51 @@
+<app-loading-scream [isLoading]="isLoading"></app-loading-scream>
+<div class="flex justify-content-center align-items-center" style="height: 100vh; display: flex;">
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+    <p-card header="Inicio de sesión" [style]="{ width: '360px' }">
+      <div class="field">
+        <label for="email">Correo electrónico o nombre de usuario</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="email"
+          class="w-full"
+          name="email"
+          placeholder="Type your email"
+        />
+        <small
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="block p-error"
+        >
+          <div *ngIf="email.errors?.['required']">Email is required.</div>
+
+        </small>
+      </div>
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <input
+          type="password"
+          pInputText
+          formControlName="password"
+          class="w-full"
+          name="password"
+          placeholder="Type your password"
+        />
+        <small
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="block p-error"
+        >
+          <div *ngIf="password.errors?.['required']">Contraseña es requerida</div>
+        </small>
+      </div>
+      <p-button
+        label="SIGN IN"
+        styleClass="w-full"
+        [disabled]="loginForm.invalid"
+        type="submit"
+      ></p-button>
+      <div class="mt-2">Registrar como comprador? <a routerLink="/auth/register">Registrar</a></div>
+      <div class="mt-2">Olvido su contraseña? <a routerLink="/auth/forgot-password">Recuperar</a></div>
+    </p-card>
+  </form>
+</div>
+

@@ -1,0 +1,88 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <p-table [value]="listUsuariosSesion" [rows]="10" [loading]="isLoading" [rowHover]="true"
+                styleClass="p-datatable-gridlines" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"
+                responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <h5 class="m-0">Sesiones de usuarios</h5>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input #filter pInputText type="text" (input)="onInput($event)"
+                                placeholder="Nombre de usuario...." class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 8rem">Usuario</th>
+                        <th style="min-width: 8rem">Nombres</th>
+                        <th style="min-width: 8rem">Apellidos</th>
+                        <th style="min-width: 12rem">Correo</th>
+                        <th style="min-width: 8rem">Rol</th>
+                        <th style="min-width: 12rem">Sesión Activa</th>
+                        <th style="width: 5rem"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-usuario>
+                    <tr>
+                        <td>{{ usuario.user.username }}</td>
+                        <td>{{ usuario.user.persona.nombres }}</td>
+                        <td>{{ usuario.user.persona.apellidos }}</td>
+                        <td>{{ usuario.user.correo }}</td>
+                        <td>{{ usuario.user.rol.rolname }}</td>
+                        <td *ngIf="usuario.activeSessions.length > 0; else noSession">
+                            <div class="flex align-items-center">
+                                <span>{{ usuario.activeSessions[0].fecha_ingreso | date: 'medium' }}</span>
+                            </div>
+                        </td>
+                        <ng-template #noSession>
+                            <td>
+                                <span class="customer-badge status-unqualified">No tiene sesión activa</span>
+                            </td>
+                        </ng-template>
+                        <td>
+                            <div class="my-button-group">
+                                <div class="flex">
+                                    <button pButton pRipple [raised]="true" severity="help"
+        class="p-button-rounded mr-2" icon="pi pi-info" pTooltip="Info sesiones anteriores"
+        tooltipPosition="left" (click)="showDialog(usuario)" [disabled]="!usuario.inactiveSessions?.length"></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="7">No data found.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="7">Loading data. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Sesiones Anteriores" [(visible)]="showDialogVisible" [modal]="true" [style]="{width: '50vw'}">
+    <ng-template pTemplate="content">
+        <p-table [value]="selectUsuario?.inactiveSessions ?? []" [rows]="10" [paginator]="true" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Fecha de Ingreso</th>
+                    <th>Fecha de Cierre</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-sesion>
+                <tr>
+                    <td>{{ sesion.fecha_ingreso | date: 'medium' }}</td>
+                    <td>{{ sesion.fecha_cierre | date: 'medium' }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-template>
+</p-dialog>

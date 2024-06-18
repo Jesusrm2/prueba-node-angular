@@ -1,0 +1,4 @@
+.layout .sidebar-visible ~ .content {
+    transform: translateX(250px); 
+    transition: transform 0.3s ease-out; 
+  }

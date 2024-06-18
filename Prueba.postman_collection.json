@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "761fff6f-e3ef-492e-b1fd-9408656784e0",
+		"name": "Prueba",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21905317"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuario\":\"jesusRm3105\",\r\n    \"password\":\"Contraseña123!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6505/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contrasena\": \"Contraseña123!\",\r\n  \"rolId\": 1,\r\n  \"nombres\": \"Jesus Alfonso\",\r\n  \"username\": \"jesusRm3105\",\r\n  \"apellidos\": \"Rodriguez Maldonado\",\r\n  \"identificacion\": \"1234567891\",\r\n  \"fecha_nacimiento\": \"1990-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6505/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logut",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6505/auth/logout/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"auth",
+						"logout",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carga masiva",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Odalys/Documents/Node .js/login-register-jwt-encoder/errores.xlsx"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:6505/api/v1/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"api",
+						"v1",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Welcome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6505/api/v1/usuario/welcome/42",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"api",
+						"v1",
+						"usuario",
+						"welcome",
+						"42"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sesiones Usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6505/api/v1/usuarios/sesiones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"api",
+						"v1",
+						"usuarios",
+						"sesiones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recuperar Contraseña",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"correo\":\"jesusmald.23@gmail.com\",\r\n    \"codigo\":\"125461\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6505/auth/reset-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"auth",
+						"reset-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contrasena\": \"Contraseña123!\",\r\n  \"rolId\": 1,\r\n  \"nombres\": \"Jesus Alfonso\",\r\n  \"username\": \"jesusRm3105\",\r\n  \"apellidos\": \"Rodriguez Maldonado\",\r\n  \"identificacion\": \"1234567891\",\r\n  \"fecha_nacimiento\": \"1990-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6505/api/v1/usuario/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"api",
+						"v1",
+						"usuario",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6505/api/v1/usuario/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"api",
+						"v1",
+						"usuario",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verificar email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"correo\":\"jesusmald.23@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6505/auth/verify-email",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"auth",
+						"verify-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Procedimiento Almacenado Crear Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6505/api/v1/usuarios/store-prcedure",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6505",
+					"path": [
+						"api",
+						"v1",
+						"usuarios",
+						"store-prcedure"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

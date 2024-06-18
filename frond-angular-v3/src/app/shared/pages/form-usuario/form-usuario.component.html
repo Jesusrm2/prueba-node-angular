@@ -1,0 +1,88 @@
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h5 *ngIf="selectUser && usuarioOwner">Actualizar Usuario</h5>
+    <h5 *ngIf="!selectUser && usuarioOwner === undefined">Registrarse</h5>
+    <h5 *ngIf="usuarioOwner && !selectUser">Agregar Usuario</h5>
+    <div class="field mb-1">
+      <div class="grid">
+        <div class="col-12 md:col-6">
+            <label for="nombres">Nombres</label>
+            <input type="text" pInputText formControlName="nombres" class="w-full" name="nombres"
+                placeholder="Nombres" />
+            <small *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="block p-error">
+                <div *ngIf="nombres.errors?.['required']">El nombre es requerido.</div>
+            </small>
+        </div>
+        <div class="col-12 md:col-6">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" pInputText formControlName="apellidos" class="w-full" name="apellidos"
+                placeholder="Apellidos" />
+            <small *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="block p-error">
+                <div *ngIf="apellidos.errors?.['required']">El apellido es requerido.</div>
+            </small>
+        </div>
+      </div>
+    </div>
+    <div class="field mb-1">
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <label for="username">Nombre de usuario</label>
+            <input type="text" pInputText formControlName="username" class="w-full" name="username"
+                placeholder="Nombre de usuario" />
+            <small *ngIf="username.invalid && (username.dirty || username.touched)" class="block p-error">
+                <div *ngIf="username.errors?.['required']">El nombre de usuario es requerido.</div>
+                <div *ngIf="username.errors?.['minlength']">El nombre de usuario debe tener al menos 8 caracteres.</div>
+                <div *ngIf="username.errors?.['maxlength']">El nombre de usuario debe tener máximo 20 caracteres.</div>
+                <div *ngIf="username.errors?.['pattern']">El nombre de usuario debe tener al menos una letra mayúscula y un número.</div>
+
+            </small>
+          </div>
+          <div class="col-12 md:col-6">
+            <label for="identificacion">Identificación</label>
+            <input type="text" pInputText formControlName="identificacion" class="w-full" name="identificacion"
+                placeholder="Identificación" />
+            <small *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)" class="block p-error">
+                <div *ngIf="identificacion.errors?.['required']">La identificación es requerida.</div>
+                <div *ngIf="identificacion.errors?.['minlength']">La identificación debe tener 10 caracteres.</div>
+                <div *ngIf="identificacion.errors?.['maxlength']">La identificación debe tener 10 caracteres.</div>
+                
+     
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="fecha_nacimiento">Fecha de nacimiento</label>
+        <input type="date" pInputText formControlName="fecha_nacimiento" class="w-full" name="fecha_nacimiento"
+            placeholder="Fecha de nacimiento" />
+        <small *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)" class="block p-error">
+            <div *ngIf="fecha_nacimiento.errors?.['required']">La fecha de nacimiento es requerida.</div>
+        </small>
+      </div>
+
+    <div class="field" *ngIf="usuarioOwner">
+        <label for="rolId">Rol</label>
+          <p-dropdown formControlName="rolId" [options]="rolesSelect" optionLabel="name" optionValue="id"
+            placeholder="Selecciona un rol" [style]="{'width': '100%'}"></p-dropdown>
+          <small *ngIf="rolId.invalid && (rolId.dirty || rolId.touched)" class="block p-error">
+            <div *ngIf="rolId.errors?.['required']">El rol de usuario es requerido.</div>
+          </small>
+    </div>
+
+
+    <div class="field">
+        <label for="contrasena">Contraseña</label>
+        <input type="password" pInputText formControlName="contrasena" class="w-full" name="contrasena"
+            placeholder="Contraseña" />
+        <small *ngIf="contrasena.invalid && (contrasena.dirty || contrasena.touched)" class="block p-error">
+            <div *ngIf="contrasena.errors?.['required']">La contraseña es requerida.</div>
+            <div *ngIf="contrasena.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</div>
+            <div *ngIf="contrasena.errors?.['pattern']">La contraseña debe tener al menos una letra mayúscula, un número y un caracter especial.</div>
+        </small>
+    </div>
+
+    <div style="display: flex; justify-content: space-between;">
+        <p-button [label]="(selectUser && usuarioOwner)? 'Actualizar' : (!selectUser && usuarioOwner === undefined)? 'Registrarse' : 'Guardar'" styleClass="w-full" severity="success" [disabled]="registerForm.invalid" type="submit"></p-button>      <p-button label="Cancelar" styleClass="w-full" severity="danger" type="button" (click)="cancel()"></p-button>
+    </div>
+  </form>
